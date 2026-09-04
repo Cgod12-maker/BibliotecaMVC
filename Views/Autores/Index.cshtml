@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BibliotecaMVC.Models.Autor>
+@{
+    ViewData["Title"] = "Listado de Autores";
+}
+
+<h1>Listado de Autores</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Nacionalidad</th>
+            <th>Fecha de Nacimiento</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.Nacionalidad</td>
+                <td>@item.FechaNacimiento.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
