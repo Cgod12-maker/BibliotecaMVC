@@ -3,11 +3,10 @@
     ViewData["Title"] = "Libros";
 }
 
-<h1>Catalogo de Libros</h1>
-
-<p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Catalogo de Libros</h1>
     <a asp-action="Create" class="btn btn-primary">Agregar Libro</a>
-</p>
+</div>
 
 @if (!Model.Any())
 {
@@ -28,9 +27,13 @@ else
                         <p class="card-text">
                             <span class="badge bg-secondary">@item.Genero</span><br />
                             <small class="text-muted">
-                                A√±o: @item.AnioPublicacion - @item.NumeroPaginas paginas
+                                Anio: @item.AnioPublicacion - @item.NumeroPaginas paginas
                             </small>
                         </p>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                        </div>
                     </div>
                 </div>
             </div>
