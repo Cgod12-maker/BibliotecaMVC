@@ -1,42 +1,54 @@
-﻿@model IEnumerable<BibliotecaMVC.Models.Libro>
+﻿@model BibliotecaMVC.Models.Libro
+
 @{
-    ViewData["Title"] = "Libros";
+    ViewData["Title"] = "Agregar Libro";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Catalogo de Libros</h1>
-    <a asp-action="Create" class="btn btn-primary">Agregar Libro</a>
+<h1>Agregar Libro</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Titulo" class="form-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Autor" class="form-label"></label>
+                <input asp-for="Autor" class="form-control" />
+                <span asp-validation-for="Autor" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Genero" class="form-label"></label>
+                <input asp-for="Genero" class="form-control" placeholder="Ej: Ficcion, Novela, Ciencia" />
+                <span asp-validation-for="Genero" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="AnioPublicacion" class="form-label">Año de publicación</label>
+                <input asp-for="AnioPublicacion" class="form-control" />
+                <span asp-validation-for="AnioPublicacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NumeroPaginas" class="form-label">Número de páginas</label>
+                <input asp-for="NumeroPaginas" class="form-control" />
+                <span asp-validation-for="NumeroPaginas" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
 </div>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-info">
-        No hay libros registrados aun. Agrega el primero.
-    </div>
-}
-else
-{
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4 mb-3">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Titulo</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@item.Autor</h6>
-                        <p class="card-text">
-                            <span class="badge bg-secondary">@item.Genero</span><br />
-                            <small class="text-muted">
-                                Anio: @item.AnioPublicacion - @item.NumeroPaginas paginas
-                            </small>
-                        </p>
-                        <div class="d-flex gap-2">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
