@@ -69,7 +69,7 @@ using (var scope = app.Services.CreateScope())
 
     // Crear los roles Administrador y Usuario si no existen
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roles = { "Administrador", "Usuario" };
+    string[] roles = { "Admin", "Bibliotecario", "Usuario" };
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))
@@ -77,6 +77,7 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole(role));
         }
     }
+
 }
 
 app.Run();
