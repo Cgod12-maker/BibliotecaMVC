@@ -3,16 +3,13 @@
 @{
     ViewData["Title"] = "Libros";
     bool puedeModificar = User.IsInRole("Admin") || User.IsInRole("Bibliotecario");
-}
-
-@{
     string rolActual = "Usuario";
     if (User.IsInRole("Admin")) { rolActual = "Administrador"; }
     else if (User.IsInRole("Bibliotecario")) { rolActual = "Bibliotecario"; }
 }
 
 <div class="alert alert-info">
-    Bienvenido, <strong>@User.Identity.Name</strong>.
+    Bienvenido, <strong>@User.Identity.Name</strong>. 
     Tu rol actual es: <span class="badge bg-primary">@rolActual</span>
 </div>
 
@@ -24,12 +21,14 @@
     }
 </div>
 
-@if (!Model.Any())
+@if (!puedeModificar)
 {
     <div class="alert alert-warning">
         ℹ️ Solo los usuarios con rol <strong>Admin</strong> o <strong>Bibliotecario</strong> pueden agregar, editar o eliminar libros.
     </div>
 }
+
+@if (!Model.Any())
 {
     <div class="alert alert-info">
         No hay libros registrados aun. @(puedeModificar ? "Agrega el primero." : "")
